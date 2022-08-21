@@ -23,7 +23,13 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
+  const { user } = request;
+
+  if (!user.pro && user.todos.length >= 10) {
+    return response.status(403).send({ error: "Action not allowed!" });
+  }
+
+  next();
 }
 
 function checksTodoExists(request, response, next) {
